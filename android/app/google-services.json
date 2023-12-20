@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "635486398019",
+    "project_id": "dicegame-22579",
+    "storage_bucket": "dicegame-22579.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635486398019:android:7c7a3cc4cd87e24bd556f6",
+        "android_client_info": {
+          "package_name": "com.example.dice_game_companion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLCquBBhp14eOekKL4sD1TRSb2H9fBLOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
