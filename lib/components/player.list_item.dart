@@ -23,14 +23,14 @@ class PlayerListItem extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  imgUrl.isNotEmpty
-                      ? imgUrl
-                      : "https://api.dicebear.com/7.x/bottts/svg?scale=120&flip=true&seed=$playerName",
-                ),
-              ),
+              // image: DecorationImage(
+              //   fit: BoxFit.cover,
+              //   image: NetworkImage(
+              //     imgUrl.isNotEmpty
+              //         ? imgUrl
+              //         : "https://api.dicebear.com/7.x/bottts/svg?scale=120&flip=true&seed=$playerName",
+              //   ),
+              // ),
             ),
           ),
         ),

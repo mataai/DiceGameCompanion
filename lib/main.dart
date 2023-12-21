@@ -3,6 +3,7 @@ import 'package:dice_game_companion/components/player.list.dart';
 import 'package:dice_game_companion/views/game.view.dart';
 import 'package:dice_game_companion/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -41,6 +42,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var _gameStarted = false;
+
   void _addPlayer() async {
     String playerName = await showDialog(
       context: context,
@@ -65,26 +68,34 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => GameView(players: widget.players),
-      ),
-    );
+    setState(() {
+      _gameStarted = true;
+    });
+    print("Game started");
+  }
+
+  _getMatchWidget() {
+    return GameView(players: widget.players);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(26),
-          child: Column(
-            children: [
-              PlayerList(players: widget.players),
-              const SizedBox(height: 24),
-              widget.players.length >= 2
-                  ? Row(
+      body: Padding(
+        padding: const EdgeInsets.all(26),
+        child: Column(
+          children: <Widget>[
+            const Text(
+              'Dice Game Companion',
+              style: TextStyle(fontSize: 32),
+            ),
+            const SizedBox(height: 24),
+            PlayerList(players: widget.players),
+            const SizedBox(height: 24),
+            !_gameStarted
+                ? Visibility(
+                    visible: widget.players.length >= 2,
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SimpleButton(
@@ -92,10 +103,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           text: 'Start Game',
                         ),
                       ],
-                    )
-                  : const SizedBox(),
-            ],
-          ),
+                    ),
+                  )
+                : _getMatchWidget(),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
