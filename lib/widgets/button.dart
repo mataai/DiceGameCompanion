@@ -4,10 +4,14 @@ class SimpleButton extends StatelessWidget {
   final String text;
   final Function() onPressed;
   final bool invertedColors;
+  final bool isDisabled;
+  final bool autofocus;
   const SimpleButton({
     required this.text,
     required this.onPressed,
+    this.isDisabled = false,
     this.invertedColors = false,
+    this.autofocus = false,
     super.key,
   });
   final primaryColor = const Color(0xff4338CA);
@@ -16,6 +20,7 @@ class SimpleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      autofocus: autofocus,
       style: ButtonStyle(
         elevation: MaterialStateProperty.all(0),
         alignment: Alignment.center,
@@ -29,7 +34,7 @@ class SimpleButton extends StatelessWidget {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
       ),
-      onPressed: onPressed,
+      onPressed: !isDisabled ? onPressed : null,
       child: Text(
         text,
         style: TextStyle(

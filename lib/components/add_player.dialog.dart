@@ -10,7 +10,8 @@ class AddPlayerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _playerName = "";
-    onChanged(value) {
+
+    _onChanged(value) {
       _playerName = value;
     }
 
@@ -45,7 +46,7 @@ class AddPlayerDialog extends StatelessWidget {
               const SizedBox(
                 height: 3.5,
               ),
-              TextInput(onChanged: onChanged),
+              TextInput(onChanged: _onChanged),
               const SizedBox(
                 height: 15,
               ),
@@ -59,6 +60,7 @@ class AddPlayerDialog extends StatelessWidget {
                   ),
                   SimpleButton(
                     text: "  Add  ",
+                    isDisabled: false,
                     onPressed: () => Navigator.pop(context, _playerName),
                   ),
                 ],

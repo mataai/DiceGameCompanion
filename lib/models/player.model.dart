@@ -1,4 +1,4 @@
-import 'package:dice_game_companion/models/current_turn.dart';
+import 'package:dice_game_companion/models/turn.dart';
 import 'package:uuid/uuid.dart';
 
 class Player {
