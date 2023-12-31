@@ -1,8 +1,7 @@
 import 'package:dice_game_companion/models/turn.dart';
-import 'package:uuid/uuid.dart';
 
 class Player {
-  final Uuid id = const Uuid();
+  final String id = DateTime.now().millisecondsSinceEpoch.toString();
   final String name;
   final List<Turn> turns = [];
   bool isCurrentPlayer = false;
