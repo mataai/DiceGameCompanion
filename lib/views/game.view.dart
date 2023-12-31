@@ -18,6 +18,12 @@ class _GameViewState extends State<GameView> {
   Turn currentTurn = Turn();
   Roll currentRoll = Roll(diceCount: 6);
 
+  @override
+  void initState() {
+    super.initState();
+    widget.players[currentPlayerIndex].turns.add(currentTurn);
+  }
+
   bool _canReRoll() {
     bool isDead = false;
     return currentRoll.lockedIndexes().length < 6;
@@ -54,28 +60,46 @@ class _GameViewState extends State<GameView> {
           children: [
             SimpleButton(
               isDisabled: !_canReRoll(),
-              onPressed: () => {
-                if (currentRoll.lockedIndexes().length == 6)
-                  {
-                    setState(() {
-                      currentTurn.rolls.add(currentRoll);
-                      currentRoll = Roll(
-                        diceCount:
-                            6 - currentTurn.rolls.last.lockedIndexes().length,
-                      );
-                    })
-                  }
+              onPressed: () {
+                if (currentRoll.lockedIndexes().length == 6) {
+                  setState(() {
+                    currentTurn.rolls.add(currentRoll);
+                    currentRoll = Roll(
+                      diceCount:
+                          6 - currentTurn.rolls.last.lockedIndexes().length,
+                    );
+                  });
+                } else {
+                  setState(() {
+                    currentTurn.rolls.add(currentRoll);
+                    currentRoll = Roll(
+                      diceCount:
+                          6 - currentTurn.rolls.last.lockedIndexes().length,
+                    );
+                  });
+                }
               },
               text: 'Reroll dices',
             ),
             SimpleButton(
-              onPressed: () => {
+              isDisabled: currentTurn.rolls.isEmpty,
+              onPressed: () {
                 setState(() {
-                  widget.players[currentPlayerIndex].turns.add(currentTurn);
+                  // Add
+                  if (currentRoll.score >= 1000 ||
+                      widget.players[currentPlayerIndex].score > 1000) {
+                    widget.players[currentPlayerIndex].turns.add(currentTurn);
+                  }
+
+                  widget.players[currentPlayerIndex].isCurrentPlayer = false;
+
                   currentTurn = Turn();
+                  currentRoll = Roll(diceCount: 6);
                   currentPlayerIndex =
                       (currentPlayerIndex + 1) % widget.players.length;
-                })
+                  widget.players[currentPlayerIndex].isCurrentPlayer = true;
+                  widget.players[currentPlayerIndex].turns.add(currentTurn);
+                });
               },
               text: "Pass to next player",
             ),
